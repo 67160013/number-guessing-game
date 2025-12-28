@@ -5,12 +5,10 @@ let secretNumber = 0;
 
 // ตัวแปรนับจํานวนครั ้งที ่ทาย
 let attemptCount = 0;
-
-// ฟังก์ชันเริ่มเกมใหม่
-function initializeGame() {
-  secretNumber = Math.floor(Math.random() * 100) + 1;
-  attemptCount = 0;
-  updateDisplay();
+// ฟังก์ชันอัปเดตจํานวนครั้ง
+function updateDisplay() {
+  const attemptsContainer = document.getElementById("attemptsContainer");
+  attemptsContainer.textContent = `ทายแล้ว: ${attemptCount} ครั้ง`;
 }
 
 // ฟังก์ชันตรวจสอบการทาย
@@ -19,6 +17,7 @@ function checkGuess() {
   const guessValue = parseInt(guessInput.value);
   const resultContainer = document.getElementById("resultContainer");
   // Validation: ตรวจสอบว่าใส่ตัวเลขหรือไม่
+
   if (isNaN(guessValue) || guessInput.value === "") {
     resultContainer.innerHTML = `
  <div class="alert alert-danger" role="alert">
@@ -65,7 +64,7 @@ function checkGuess() {
 // ฟังก์ชันอัปเดตจํานวนครั ้ง
 function updateDisplay() {
   const attemptsContainer = document.getElementById("attemptsContainer");
-  attemptsContainer.textContent = `ทายแล้ว: ${attemptCount} ครั ้ง`;
+  attemptsContainer.textContent = `ทายแล้ว: ${attemptCount} ครั้ง`;
 }
 
 // ฟังก์ชันเริ่มเกมใหม่
