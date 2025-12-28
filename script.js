@@ -5,6 +5,7 @@ let secretNumber = 0;
 
 // ตัวแปรนับจํานวนครั้งที ่ทาย
 let attemptCount = 0;
+
 // ฟังก์ชันอัปเดตจํานวนครั้ง
 function initializeGame() {
   secretNumber = Math.floor(Math.random() * 100) + 1;
@@ -78,3 +79,11 @@ function resetGame() {
 
 // เริ่มเกมเมื ่อโหลดหน้า
 window.addEventListener("load", initializeGame);
+
+// เพิ่มการ select text เมื ่อคลิก input 
+document.addEventListener("DOMContentLoaded", function () { 
+  const guessInput = document.getElementById("guessInput"); 
+  guessInput.addEventListener("focus", function () { 
+    this.select(); 
+  }); 
+});
