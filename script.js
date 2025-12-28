@@ -6,11 +6,12 @@ let secretNumber = 0;
 // ตัวแปรนับจํานวนครั้งที ่ทาย
 let attemptCount = 0;
 
-// ฟังก์ชันอัปเดตจํานวนครั้ง
+// ฟังก์ชันเริ่มเกมใหม่
 function initializeGame() {
   secretNumber = Math.floor(Math.random() * 100) + 1;
   attemptCount = 0;
   updateDisplay();
+  showHighScore(); //เพิ่มบรรทัดนี้
 }
 
 // ฟังก์ชันตรวจสอบการทาย
@@ -39,6 +40,8 @@ function checkGuess() {
   }
   attemptCount++;
   if (guessValue === secretNumber) {
+    updateHighScore(); // ⭐ เพิ่ม
+    showHighScore(); // ⭐ เพิ่ม
     resultContainer.innerHTML = `
  <div class="alert alert-success" role="alert">
  <h5>✓ ถูกต้อง!</h5>
@@ -80,21 +83,43 @@ function resetGame() {
 // เริ่มเกมเมื ่อโหลดหน้า
 window.addEventListener("load", initializeGame);
 
-// เพิ่มการ select text เมื ่อคลิก input 
-document.addEventListener("DOMContentLoaded", function () { 
-  const guessInput = document.getElementById("guessInput"); 
-  guessInput.addEventListener("focus", function () { 
-    this.select(); 
-  }); 
+// เพิ่มการ select text เมื ่อคลิก input
+document.addEventListener("DOMContentLoaded", function () {
+  const guessInput = document.getElementById("guessInput");
+  guessInput.addEventListener("focus", function () {
+    this.select();
+  });
 });
- 
-// เพิ่มการรองรับ Enter key 
-document.addEventListener("DOMContentLoaded", function () { 
-  document 
-    .getElementById("guessInput") 
-    .addEventListener("keypress", function (event) { 
-      if (event.key === "Enter") { 
-        checkGuess(); 
-      } 
-    }); 
+
+// เพิ่มการรองรับ Enter key
+document.addEventListener("DOMContentLoaded", function () {
+  document
+    .getElementById("guessInput")
+    .addEventListener("keypress", function (event) {
+      if (event.key === "Enter") {
+        checkGuess();
+      }
+    });
 });
+
+let bestScore = localStorage.getItem("highScore");
+
+// แสดง High Score
+function showHighScore() {
+  const highScoreContainer = document.getElementById("highScoreContainer");
+  if (!highScoreContainer) return;
+
+  if (bestScore) {
+    highScoreContainer.textContent = `🏆 High Score: ${bestScore} ครั้ง`;
+  } else {
+    highScoreContainer.textContent = "";
+  }
+}
+
+// อัปเดต High Score
+function updateHighScore() {
+  if (!bestScore || attemptCount < bestScore) {
+    bestScore = attemptCount;
+    localStorage.setItem("highScore", bestScore);
+  }
+}
