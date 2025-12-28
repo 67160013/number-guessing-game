@@ -6,9 +6,10 @@ let secretNumber = 0;
 // ตัวแปรนับจํานวนครั ้งที ่ทาย
 let attemptCount = 0;
 // ฟังก์ชันอัปเดตจํานวนครั้ง
-function updateDisplay() {
-  const attemptsContainer = document.getElementById("attemptsContainer");
-  attemptsContainer.textContent = `ทายแล้ว: ${attemptCount} ครั้ง`;
+function initializeGame() {
+  secretNumber = Math.floor(Math.random() * 100) + 1;
+  attemptCount = 0;
+  updateDisplay();
 }
 
 // ฟังก์ชันตรวจสอบการทาย
@@ -61,7 +62,7 @@ function checkGuess() {
   guessInput.focus();
 }
 
-// ฟังก์ชันอัปเดตจํานวนครั ้ง
+// ฟังก์ชันอัปเดตจํานวนครั้ง
 function updateDisplay() {
   const attemptsContainer = document.getElementById("attemptsContainer");
   attemptsContainer.textContent = `ทายแล้ว: ${attemptCount} ครั้ง`;
